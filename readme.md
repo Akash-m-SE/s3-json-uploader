@@ -46,18 +46,42 @@ Response:
 - Returns structured errors for invalid JSON inputs.
 ## Environment Setup
 
-To run this project, you will need to create an AWS S3 bucket, setup the policies inside the S3 bucket, create IAM user with proper access to the S3 bucket and get your access keys.
+To run this project, you will need to create an AWS S3 bucket, setup these policies inside the S3 bucket:
 
-add the following environment variables to your lambda function's configuration
+```
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowAccessToS3Bucket",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": [
+        "s3:GetObject",
+        "s3:ListBucket",
+        "s3:PutObject"
+      ],
+      "Resource": [
+        "arn:aws:s3:::your-bucket-name",
+        "arn:aws:s3:::your-bucket-name/*"
+      ]
+    }
+  ]
+}
+```
+
+Then create an IAM user with proper access to the S3 bucket and get your access keys.
+
+Add the following environment variables to your lambda function's configuration
 
 
 `AWS_S3_REGION` `AWS_S3_BUCKET_NAME` `AWS_S3_ACCESS_KEY_ID` `AWS_S3_SECRET_ACCESS_KEY`
 
 ## Installation/Setup
 
-- Create an S3 Bucket: Set up a public S3 bucket to store JSON files.
+- Set up a public S3 bucket with proper policies to store JSON files.
 
-- Deploy Lambda Function: Deploy the retrieveJson Lambda function to AWS Lambda.
+- Create the `storeJson` Lambda function in AWS Lambda for which you can get the source code from the repository's src/index.js file.
 
 - Set Up API Gateway:
     - Create a new API in API Gateway.
