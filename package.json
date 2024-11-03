@@ -1,5 +1,5 @@
 {
-  "name": "storejson",
+  "name": "s3-json-uploader",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
